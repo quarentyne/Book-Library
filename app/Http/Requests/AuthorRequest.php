@@ -16,6 +16,7 @@ class AuthorRequest extends FormRequest
         return [
             'lastname' => 'required|min:3|string',
             'firstname' => 'required|min:1|string',
+            'middlename' => 'sometimes|nullable|string',
         ];
     }
 }

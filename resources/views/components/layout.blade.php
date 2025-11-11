@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <base href="{{ env('APP_URL', 'http://localhost') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,8 +21,8 @@
             </style>
         @endif
     </head>
-    <body class="bg-neutral-900 text-neutral-100 min-h-[100vh] grid grid-cols-[300px_1fr] gap-5">
+    <body class="bg-neutral-900 text-neutral-100 min-h-[100vh] grid grid-cols-[300px_1fr]">
         <x-sidebar />
-        {{ $slot }}
+        <div class="mt-10 px-5">{{ $slot }}</div>
     </body>
 </html>
