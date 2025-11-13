@@ -3,8 +3,16 @@
         <x-sidebar-link href="{{ route('authors.list') }}">Authors</x-sidebar-link>
     </div>
     <div></div>
-    <div class="justify-self-end">
-        <button class="cursor-pointer flex gap-2 items-center py-1 px-2 bg-transparent hover:bg-neutral-700" type="button">
+    <div
+        class="justify-self-end relative"
+        x-data="{ open: false }"
+    >
+        <button
+            class="cursor-pointer flex gap-2 items-center py-1 px-2 bg-transparent hover:bg-neutral-700"
+            type="button"
+            @click="open = !open"
+            @click.away="open = false"
+        >
             Add
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="0 0 15 15" version="1.1">
                 <g id="surface1">
@@ -12,5 +20,24 @@
                 </g>
             </svg>
         </button>
+        <x-dropdown
+            x-cloak
+            x-show="open"
+            x-transition.origin.top
+            @click.outside="open = false"
+            class="p-2 absolute right-0 mt-2 w-44 rounded-lg border-1 bg-neutral-900 shadow-lg overflow-hidden z-50"
+        >
+            <x-action-button
+                class="w-full border-none text-left"
+                x-data
+                @click="
+                    document.querySelector('#create-author-form .form-error__js').innerHTML = '';
+                    $dispatch('open-modal', {
+                    name: 'create-author'
+                })"
+            >
+                Add author
+            </x-action-button>
+        </x-dropdown>
     </div>
 </header>
