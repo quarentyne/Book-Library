@@ -21,8 +21,8 @@
             </style>
         @endif
     </head>
-    <body class="bg-neutral-900 text-neutral-100 min-h-[100vh] grid grid-cols-[300px_1fr]">
-        <x-sidebar />
+    <body class="bg-neutral-900 text-neutral-100 min-h-[100vh]">
+        <x-header />
         <x-author.create-modal />
         <div class="mt-10 px-5">{{ $slot }}</div>
     </body>
