@@ -4,7 +4,7 @@
         <x-action-button
             x-data
             @click="
-                document.querySelector('#edit-author-form__error').innerHTML = '';
+                document.querySelector('#edit-author-form .form-error__js').innerHTML = '';
                 $dispatch('open-modal', {
                 name: 'edit-author',
                 author: {
