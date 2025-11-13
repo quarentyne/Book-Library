@@ -2,7 +2,9 @@
     <div class="flex gap-2">
         <x-sidebar-link href="{{ route('authors.list') }}">Authors</x-sidebar-link>
     </div>
-    <div></div>
+    <div>
+        {{ $slot }}
+    </div>
     <div
         class="justify-self-end relative"
         x-data="{ open: false }"
