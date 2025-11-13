@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/author', [AuthorController::class, 'index'])->name('author.list');
-Route::post('/author', [AuthorController::class, 'store'])->name('author.store');
-Route::post('/author/{id}', [AuthorController::class, 'update'])->name('author.update');
-Route::delete('/author/{id}', [AuthorController::class, 'destroy'])->name('author.delete');
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors.list');
+Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
+Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
+Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('authors.delete');
