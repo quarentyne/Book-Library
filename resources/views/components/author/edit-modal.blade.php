@@ -13,7 +13,7 @@
             <h2 class="text-lg font-semibold">Edit Author</h2>
 
             <div>
-                <span id="edit-author-form__error" class="text-red-500"></span>
+                <span class="form-error__js" class="text-red-500"></span>
             </div>
 
             <div>
