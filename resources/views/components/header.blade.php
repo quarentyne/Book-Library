@@ -1,6 +1,7 @@
 <header class="py-3 px-5 grid grid-cols-3 gap-5 border-b">
     <div class="flex gap-2">
         <x-sidebar-link href="{{ route('authors.list') }}">Authors</x-sidebar-link>
+        <x-sidebar-link href="{{ route('books.list') }}">Books</x-sidebar-link>
     </div>
     <div>
         {{ $slot }}
