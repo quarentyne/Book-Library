@@ -11,8 +11,8 @@
         <x-searchbar
             action="{{ route('authors.list') }}"
             sort="{{ request()->get('sort') }}"
-            sort="{{ request()->get('direction') }}"
-            sort="{{ request()->get('search') }}"
+            direction="{{ request()->get('direction') }}"
+            search="{{ request()->get('search') }}"
         />
     </x-slot:searchbar>
     <a
