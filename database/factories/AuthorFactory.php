@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,5 +22,13 @@ class AuthorFactory extends Factory
             'firstname' => fake()->firstName(),
             'middlename' => rand(0, 1) ? fake()->firstName() : '',
         ];
+    }
+
+    public function withBooks(int $count = 1) {
+        return $this->hasAttached(
+            Book::factory()->count($count),
+            [],
+            'books',
+        );
     }
 }

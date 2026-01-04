@@ -17,7 +17,7 @@
         </a>
         <a
             class="flex w-full h-[100vh] items-center justify-center border-10 text-white hover:border-neutral-500 hover:text-neutral-500 transition"
-            href="#"
+            href="{{ route('books.list') }}"
         >
             <svg class="fill-current" height="200px" width="200px" version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

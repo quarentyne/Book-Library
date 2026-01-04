@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Author extends Model
+class Book extends Model
 {
+    /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory;
 
-    protected $guarded = [];
-
-    public function books(): belongsToMany
+    public function authors(): BelongsToMany
     {
-        return $this->belongsToMany(Book::class, 'author_book');
+        return $this->belongsToMany(Author::class, 'author_book', 'book_id', 'author_id');
     }
 }

@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const editAuthorForm = document.querySelector('#edit-author-form');
-    const editAuthorFormSubmitter = editAuthorForm.querySelector('button[type="submit"]');
+    const editAuthorFormSubmitter = editAuthorForm?.querySelector('button[type="submit"]');
     const createAuthorForm = document.querySelector('#create-author-form');
-    const createAuthorFormSubmitter = createAuthorForm.querySelector('button[type="submit"]');
+    const createAuthorFormSubmitter = createAuthorForm?.querySelector('button[type="submit"]');
 
     const showError = (errors, formSelector) => {
         document.querySelector(`${formSelector} .form-error__js`).innerHTML = Object.values(data.errors).flat().join('<br />');
     };
 
-    editAuthorForm.addEventListener('submit', e => {
+    editAuthorForm?.addEventListener('submit', e => {
         e.preventDefault();
         editAuthorFormSubmitter.disabled = true;
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
-    createAuthorForm.addEventListener('submit', e => {
+    createAuthorForm?.addEventListener('submit', e => {
         e.preventDefault();
         createAuthorFormSubmitter.disabled = true;
 
