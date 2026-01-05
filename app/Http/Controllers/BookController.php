@@ -13,13 +13,19 @@ class BookController
     {
         $authors = Author::all();
 
-        $query = Book::query();
+        $query = Book::query()->with('authors');;
 
         if($request->get('search')) {
             $search = $request->get('search');
 
             $query->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%');
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('authors', function ($query) use ($search) {
+                        $query->where('firstname', 'like', '%' . $search . '%')
+                            ->orWhere('lastname', 'like', '%' . $search . '%')
+                            ->orWhereRaw("CONCAT(lastname, ' ', firstname) LIKE ?", ["%{$search}%"])
+                            ->orWhereRaw("CONCAT(firstname, ' ', lastname) LIKE ?", ["%{$search}%"]);
+                    });
             });
         }
 
