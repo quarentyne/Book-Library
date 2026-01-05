@@ -4,11 +4,8 @@
         'sort' => 'title',
         'direction' => $direction,
         ]);
-    $authorsInFilter = request()->get('author');
+    $authorsInFilter = request()->get('author') ?: [];
     $filters = request()->all();
-//                @foreach($filters as $name => $value)
-//                :{{ $name }}="{{ $value }}"
-//            @endforeach
 @endphp
 <x-layout>
     <x-slot:searchbar>
@@ -24,7 +21,7 @@
         x-data="{ positionLeft: '-350px' }"
     >
         <form action="{{ route('books.list') }}"
-            class="absolute top-0 w-[300px] h-[100vh] bg-neutral-900 border-r z-50 transition-[left] px-4 py-15"
+            class="fixed top-0 w-[300px] h-[100vh] bg-neutral-900 border-r z-50 transition-[left] px-4 py-15"
             :style="{ left: positionLeft }"
             x-cloak
         >
@@ -37,6 +34,12 @@
             @if(request()->get('search'))
                 <input type="hidden" name="search" value="{{ request()->get('search') }}" />
             @endif
+
+            <button
+                type="button"
+                @click="positionLeft = '-350px';"
+                class="px-3 py-2 border-1 hover:bg-neutral-700 rounded cursor-pointer absolute top-5 right-5"
+            >Hide Filters</button>
 
             <h6 class="text-medium text-lg mb-2">Authors</h6>
             <ul>
@@ -79,14 +82,14 @@
         </div>
 
 
-    {{--    <div class="grid grid-cols-3 gap-5">--}}
-    {{--        @foreach($authors as $author)--}}
-    {{--            <x-author.card :author="$author" />--}}
-    {{--        @endforeach--}}
-    {{--    </div>--}}
-    {{--    <div class="mt-5">--}}
-    {{--        {{ $authors->appends(request()->query())->links() }}--}}
-    {{--    </div>--}}
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5">
+            @foreach($books as $book)
+                <x-book.card :book="$book" />
+            @endforeach
+        </div>
+        <div class="mt-5">
+            {{ $books->appends(request()->query())->links() }}
+        </div>
     {{--    <x-author.edit-modal />--}}
     </div>
 </x-layout>

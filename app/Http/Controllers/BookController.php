@@ -13,7 +13,24 @@ class BookController
     {
         $authors = Author::all();
 
-        return view('book.index', compact('authors'));
+        $query = Book::query();
+
+        if($request->get('search')) {
+            $search = $request->get('search');
+
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($request->get('sort') === 'title') {
+            $direction = $request->get('direction', 'ASC');
+            $query->orderBy('title', $direction);
+        }
+
+        $books = $query->paginate(15);
+
+        return view('book.index', compact('authors', 'books'));
     }
 
     public function store(Request $request)
