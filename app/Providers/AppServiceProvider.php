@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Author;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer(['components.book.create-modal'], function ($view) {
+           $authors = Author::all();
+
+           $view->with('authors', $authors);
+        });
     }
 }

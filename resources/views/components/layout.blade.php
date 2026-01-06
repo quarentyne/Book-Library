@@ -5,5 +5,6 @@
         @endisset
     </x-header>
     <x-author.create-modal />
+    <x-book.create-modal />
     <div class="mt-10 px-5">{{ $slot }}</div>
 </x-app>
