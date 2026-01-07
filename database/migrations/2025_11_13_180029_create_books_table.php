@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->year('release_date');
+            $table->smallInteger('release_date');
             $table->timestamps();
         });
 
@@ -33,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
         Schema::dropIfExists('author_book');
+        Schema::dropIfExists('books');
     }
 };

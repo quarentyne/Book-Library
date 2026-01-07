@@ -6,7 +6,11 @@
 @endphp
 
 <div class="p-4 rounded border border-neutral-700">
-    <img class="my-0 mx-auto object-cover w-full max-h-[400px]" src="https://placehold.co/300x400"/>
+    <img
+        class="my-0 mx-auto object-cover w-full max-h-[400px]"
+        src="{{ asset('storage/' . $book->image) }}"
+        alt="{{ $book->title }}"
+    />
     <p class="font-bold mt-4">{{ ucfirst($book->title) }}</p>
     <p class="mt-4">{{ implode(', ', $authors) }}</p>
     <div class="mt-4 flex justify-between">

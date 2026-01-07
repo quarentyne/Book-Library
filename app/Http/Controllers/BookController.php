@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -39,9 +40,22 @@ class BookController
         return view('book.index', compact('authors', 'books'));
     }
 
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
+        $bookData = $request->validated();
 
+        $imagePath = $request->file('image')->store('book', 'public');
+
+        $book = Book::create([
+            'title'         => $bookData['title'],
+            'image'         => $imagePath,
+            'description'   => $bookData['description'],
+            'release_date'  => $bookData['release_date'],
+        ]);
+
+        $book->authors()->sync($bookData['authors']);
+
+        return response()->json(['success' => true, 'book' => $book]);
     }
 
     public function update(Request $request, Book $book)

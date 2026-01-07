@@ -11,6 +11,8 @@ class Book extends Model
     /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class, 'author_book', 'book_id', 'author_id');
