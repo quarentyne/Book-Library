@@ -15,18 +15,15 @@
     <p class="mt-4">{{ implode(', ', $authors) }}</p>
     <div class="mt-4 flex justify-between">
         <x-action-button
-            x-data
-            @click="
-                document.querySelector('#edit-book-form .form-error__js').innerHTML = '';
-                $dispatch('open-modal', {
+            @click="$dispatch('open-modal', {
                 name: 'edit-book',
-                author: {
+                book: {
                     id: {{ $book->id }},
                     title: '{{ $book->title }}',
                     description: '{{ $book->description }}',
-                    image: '{{ $book->image }}',
-                    release_date: '{{ $book->release_date }}',
-                    authors: '{{ $book->authors }}'
+                    image_url: '{{ $book->image ? asset('storage/' . $book->image) : null }}',
+                    release_date: {{ $book->release_date }},
+                    authors: {{ $book->authors->pluck('id') }}
                 }
             })"
         >

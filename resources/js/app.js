@@ -112,4 +112,40 @@ document.addEventListener('DOMContentLoaded', () => {
             createBookFormSubmitter.disabled = false;
         }
     });
+
+    editBookForm?.addEventListener('submit', e => {
+        e.preventDefault();
+        editBookFormSubmitter.disabled = true;
+
+        const formData = new FormData(editBookForm);
+        const endpoint = editBookForm.getAttribute('action');
+
+        try {
+            fetch(baseURL + endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Disposition': 'form-data',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+
+                    if (data.errors) {
+                        showError(data.errors, '#edit-book-form');
+                    }
+
+                    editBookFormSubmitter.disabled = false;
+                });
+        } catch (e) {
+            showError(e.errors || ['Request was failed'], '#efit-book-form');
+        } finally {
+            editBookFormSubmitter.disabled = false;
+        }
+    });
 });

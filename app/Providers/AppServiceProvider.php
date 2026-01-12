@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['components.book.create-modal'], function ($view) {
+        View::composer(['components.book.create-modal', 'components.book.edit-modal'], function ($view) {
            $authors = Author::all();
 
            $view->with('authors', $authors);

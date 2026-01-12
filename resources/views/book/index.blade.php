@@ -90,6 +90,6 @@
         <div class="mt-5">
             {{ $books->appends(request()->query())->links() }}
         </div>
-    {{--    <x-author.edit-modal />--}}
+        <x-book.edit-modal />
     </div>
 </x-layout>
