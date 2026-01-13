@@ -15,27 +15,16 @@ class BookController
 {
     public function index(Request $request): View
     {
-        $authors = Author::all();
+        $authors = Author::withSort('lastname', 'ASC')->get();
 
         $query = Book::query()->with('authors');;
 
         if($request->get('search')) {
-            $search = $request->get('search');
-
-            $query->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhereHas('authors', function ($query) use ($search) {
-                        $query->where('firstname', 'like', '%' . $search . '%')
-                            ->orWhere('lastname', 'like', '%' . $search . '%')
-                            ->orWhereRaw("CONCAT(lastname, ' ', firstname) LIKE ?", ["%{$search}%"])
-                            ->orWhereRaw("CONCAT(firstname, ' ', lastname) LIKE ?", ["%{$search}%"]);
-                    });
-            });
+            $query->withSearch($request->get('search'));
         }
 
-        if ($request->get('sort') === 'title') {
-            $direction = $request->get('direction', 'ASC');
-            $query->orderBy('title', $direction);
+        if ($request->get('sort')) {
+            $query->withSort($request->get('sort'), $request->get('direction', 'ASC'));
         }
 
         $books = $query->paginate(15);
