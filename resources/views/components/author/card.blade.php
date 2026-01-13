@@ -1,5 +1,5 @@
 <div class="p-4 rounded border border-neutral-700">
-    <p>{{ $author->lastname }} {{ $author->firstname }} {{ $author->middlename }}</p>
+    <p>{{ $author->fullname }}</p>
     <div class="mt-4 flex justify-between">
         <x-action-button
             x-data
