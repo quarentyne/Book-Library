@@ -9,7 +9,7 @@
             <h2 class="text-lg font-semibold">Create Author</h2>
 
             <div>
-                <span class="form-error__js" class="text-red-500"></span>
+                <span class="form-error__js text-red-500"></span>
             </div>
 
             <div>

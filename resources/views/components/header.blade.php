@@ -41,6 +41,17 @@
             >
                 Add author
             </x-action-button>
+            <x-action-button
+                class="w-full border-none text-left"
+                x-data
+                @click="
+                    document.querySelector('#create-book-form .form-error__js').innerHTML = '';
+                    $dispatch('open-modal', {
+                    name: 'create-book'
+                })"
+            >
+                Add book
+            </x-action-button>
         </x-dropdown>
     </div>
 </header>
