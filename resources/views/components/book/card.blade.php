@@ -8,10 +8,10 @@
 <div class="p-4 rounded border border-neutral-700">
     <img
         class="my-0 mx-auto object-cover w-full max-h-[400px]"
-        src="{{ asset('storage/' . $book->image) }}"
+        src="{{ $book->image }}"
         alt="{{ $book->title }}"
     />
-    <p class="font-bold mt-4">{{ ucfirst($book->title) }}</p>
+    <p class="font-bold mt-4">{{ $book->title }}</p>
     <p class="mt-4">{{ implode(', ', $authors) }}</p>
     <div class="mt-4 flex justify-between">
         <x-action-button
@@ -21,7 +21,7 @@
                     id: {{ $book->id }},
                     title: '{{ $book->title }}',
                     description: '{{ $book->description }}',
-                    image_url: '{{ $book->image ? asset('storage/' . $book->image) : null }}',
+                    image_url: '{{ $book->image }}',
                     release_date: {{ $book->release_date }},
                     authors: {{ $book->authors->pluck('id') }}
                 }
