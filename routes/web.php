@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
+include_once 'auth.php';
+
 Route::get('/', function () {
     return view('welcome');
 });
