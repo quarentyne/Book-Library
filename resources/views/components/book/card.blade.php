@@ -13,26 +13,28 @@
     />
     <p class="font-bold mt-4">{{ $book->title }}</p>
     <p class="mt-4">{{ implode(', ', $authors) }}</p>
-    <div class="mt-4 flex justify-between">
-        <x-action-button
-            @click="$dispatch('open-modal', {
-                name: 'edit-book',
-                book: {
-                    id: {{ $book->id }},
-                    title: '{{ $book->title }}',
-                    description: '{{ $book->description }}',
-                    image_url: '{{ $book->image }}',
-                    release_date: {{ $book->release_date }},
-                    authors: {{ $book->authors->pluck('id') }}
-                }
-            })"
-        >
-            Edit
-        </x-action-button>
-        <form action="{{ route('books.delete', $book) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <x-action-button type="submit" class="hover:bg-red-500">Delete</x-action-button>
-        </form>
-    </div>
+    @if(auth()->user()->can('edit books') && \Illuminate\Support\Facades\Gate::check('book-edit', $book))
+        <div class="mt-4 flex justify-between">
+            <x-action-button
+                @click="$dispatch('open-modal', {
+                   name: 'edit-book',
+                   book: {
+                       id: {{ $book->id }},
+                       title: '{{ $book->title }}',
+                       description: '{{ $book->description }}',
+                       image_url: '{{ $book->image }}',
+                       release_date: {{ $book->release_date }},
+                       authors: {{ $book->authors->pluck('id') }}
+                   }
+               })"
+            >
+                Edit
+            </x-action-button>
+            <form action="{{ route('books.delete', $book) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <x-action-button type="submit" class="hover:bg-red-500">Delete</x-action-button>
+            </form>
+        </div>
+    @endif
 </div>

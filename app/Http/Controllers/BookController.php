@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class BookController
@@ -35,6 +36,10 @@ class BookController
 
     public function store(CreateBookRequest $request): JsonResponse
     {
+        if(Auth::guest()) {
+            abort(401);
+        }
+
         $bookData = $request->validated();
 
         $imagePath = $request->file('image')->store('book', 'public');
@@ -53,6 +58,10 @@ class BookController
 
     public function update(UpdateBookRequest $request, Book $book)
     {
+        if(!Gate::allows('book-edit', $book)) {
+            abort(403);
+        }
+
         $bookData = $request->validated();
 
         if($request->hasFile('image')) {
@@ -73,6 +82,10 @@ class BookController
 
     public function destroy(Book $book): RedirectResponse
     {
+        if(!Gate::allows('book-edit', $book)) {
+            abort(403);
+        }
+
         $book->delete();
 
         return back();
