@@ -6,6 +6,7 @@ use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController
 {
@@ -28,6 +29,10 @@ class AuthorController
 
     public function store(AuthorRequest $request)
     {
+        if(!Auth::user()->hasRole('admin')) {
+            abort(403);
+        }
+
         $authorData = $request->validated();
 
         $author = Author::create($authorData);
@@ -37,6 +42,10 @@ class AuthorController
 
     public function update(AuthorRequest $request, Author $author)
     {
+        if(!Auth::user()->hasRole('admin')) {
+            abort(403);
+        }
+
         $author->update($request->validated());
 
         return response()->json(['success' => true, 'author' => $author]);
@@ -44,6 +53,10 @@ class AuthorController
 
     public function destroy(Author $author): RedirectResponse
     {
+        if(!auth()->user()->hasRole('admin')) {
+            abort(403);
+        }
+
         $author->delete();
 
         return back();

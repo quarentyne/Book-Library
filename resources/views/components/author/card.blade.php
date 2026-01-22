@@ -1,26 +1,28 @@
 <div class="p-4 rounded border border-neutral-700">
     <p>{{ $author->fullname }}</p>
-    <div class="mt-4 flex justify-between">
-        <x-action-button
-            x-data
-            @click="
-                document.querySelector('#edit-author-form .form-error__js').innerHTML = '';
-                $dispatch('open-modal', {
-                name: 'edit-author',
-                author: {
-                    id: {{ $author->id }},
-                    firstname: '{{ $author->firstname }}',
-                    lastname: '{{ $author->lastname }}',
-                    middlename: '{{ $author->middlename }}'
-                }
-            })"
-        >
-            Edit
-        </x-action-button>
-        <form action="{{ route('authors.delete', $author) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <x-action-button type="submit" class="hover:bg-red-500">Delete</x-action-button>
-        </form>
-    </div>
+    @can('edit authors')
+        <div class="mt-4 flex justify-between">
+            <x-action-button
+                x-data
+                @click="
+                    document.querySelector('#edit-author-form .form-error__js').innerHTML = '';
+                    $dispatch('open-modal', {
+                    name: 'edit-author',
+                    author: {
+                        id: {{ $author->id }},
+                        firstname: '{{ $author->firstname }}',
+                        lastname: '{{ $author->lastname }}',
+                        middlename: '{{ $author->middlename }}'
+                    }
+                })"
+            >
+                Edit
+            </x-action-button>
+            <form action="{{ route('authors.delete', $author) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <x-action-button type="submit" class="hover:bg-red-500">Delete</x-action-button>
+            </form>
+        </div>
+    @endcan
 </div>
