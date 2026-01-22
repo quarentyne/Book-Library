@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Author;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
