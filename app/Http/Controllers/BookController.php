@@ -49,6 +49,7 @@ class BookController
             'image'         => $imagePath,
             'description'   => $bookData['description'],
             'release_date'  => $bookData['release_date'],
+            'owner_id'      => Auth::id(),
         ]);
 
         $book->authors()->sync($bookData['authors']);
