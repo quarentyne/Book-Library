@@ -13,7 +13,7 @@
     />
     <p class="font-bold mt-4">{{ $book->title }}</p>
     <p class="mt-4">{{ implode(', ', $authors) }}</p>
-    @if(auth()->user()->can('edit books') && \Illuminate\Support\Facades\Gate::check('book-edit', $book))
+    @if(Auth::check() && auth()->user()->can('edit books') && \Illuminate\Support\Facades\Gate::check('book-edit', $book))
         <div class="mt-4 flex justify-between">
             <x-action-button
                 @click="$dispatch('open-modal', {

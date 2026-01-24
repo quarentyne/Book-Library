@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\BookDTO;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
@@ -40,18 +41,19 @@ class BookController
             abort(401);
         }
 
-        $bookData = $request->validated();
+        $bookData = BookDTO::fromRequest($request);
 
         $imagePath = $request->file('image')->store('book', 'public');
 
         $book = Book::create([
-            'title'         => $bookData['title'],
+            'title'         => $bookData->title,
             'image'         => $imagePath,
-            'description'   => $bookData['description'],
-            'release_date'  => $bookData['release_date'],
+            'description'   => $bookData->description,
+            'release_date'  => $bookData->release_date,
+            'owner_id'      => $bookData->owner_id,
         ]);
 
-        $book->authors()->sync($bookData['authors']);
+        $book->authors()->sync($bookData->authors);
 
         return response()->json(['success' => true, 'book' => $book]);
     }
@@ -62,20 +64,20 @@ class BookController
             abort(403);
         }
 
-        $bookData = $request->validated();
+        $bookData = BookDTO::fromRequest($request);
 
         if($request->hasFile('image')) {
             $path = $request->file('image')->store('book', 'public');
             $book->image = $path;
         }
 
-        $book->title = $bookData['title'];
-        $book->description = $bookData['description'];
-        $book->release_date = $bookData['release_date'];
+        $book->title = $bookData->title;
+        $book->description = $bookData->description;
+        $book->release_date = $bookData->release_date;
 
         $book->save();
 
-        $book->authors()->sync($bookData['authors']);
+        $book->authors()->sync($bookData->authors);
 
         return response()->json(['success' => true, 'book' => $bookData]);
     }
