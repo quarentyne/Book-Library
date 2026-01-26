@@ -37,7 +37,7 @@ class AuthorController
 
         $author = Author::create($authorData);
 
-        return response()->json(['success' => true, 'author' => $author]);
+        return response()->json(['success' => true, 'author' => $author], 201);
     }
 
     public function update(AuthorRequest $request, Author $author)

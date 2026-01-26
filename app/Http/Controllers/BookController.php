@@ -55,7 +55,7 @@ class BookController
 
         $book->authors()->sync($bookData->authors);
 
-        return response()->json(['success' => true, 'book' => $book]);
+        return response()->json(['success' => true, 'book' => $book], 201);
     }
 
     public function update(UpdateBookRequest $request, Book $book)
